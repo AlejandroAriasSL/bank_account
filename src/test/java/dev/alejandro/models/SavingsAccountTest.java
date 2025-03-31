@@ -42,4 +42,20 @@ public class SavingsAccountTest {
         assertThat(exception.getMessage(), is("Cannot deposit to an inactive account"));
 
     }
+
+    @Test
+    @DisplayName("It should allow deposit if account is active")
+    void test_allows_deposit_if_account_is_active() {
+
+        float initialBalance = 10000;
+        float annualRate = 1;
+        float depositAmount = 1000;
+
+        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
+
+        savingsAccount.deposit(depositAmount);
+
+        assertTrue(savingsAccount.isActive());
+        assertThat(savingsAccount.getBalance(), is(initialBalance + depositAmount));
+    }
 }
