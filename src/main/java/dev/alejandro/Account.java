@@ -50,4 +50,10 @@ public abstract class Account {
         balance += balance * monthlyRate;
     }
 
+    public void monthlyStatement() {
+        balance -= monthlyCommision;
+
+        calculateMonthlyRate();
+    }
+
 }
