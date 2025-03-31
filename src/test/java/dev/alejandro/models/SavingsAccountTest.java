@@ -116,4 +116,29 @@ public class SavingsAccountTest {
         assertThat(savingsAccount.getWithdrawalCounter(), is(2));
     }
 
+    @Test
+    @DisplayName("It should charge $1000 of commision per withdrawal if withdrawal counter exceeds 4")
+    void test_monthly_statement_charges_1000_per_withdrawal_after_4_withdrawals() {
+
+        float initialBalance = 20000;
+        float annualRate = 1;
+        float commision = 1000;
+
+        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
+
+        for (int i = 0; i < 4; i++) {
+            savingsAccount.withdraw(amount);
+        }
+
+        assertThat(savingsAccount.getBalance(), is(initialBalance - (amount * 4)));
+
+        savingsAccount.withdraw(amount);
+        savingsAccount.withdraw(amount);
+
+        savingsAccount.monthlyStatement();
+
+        assertThat(savingsAccount.getWithdrawalCounter(), is(6));
+        assertThat(savingsAccount.getBalance(), is(initialBalance - (amount * 6) - (commision * 2)));
+    }
+
 }
