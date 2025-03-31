@@ -14,6 +14,11 @@ public class CurrentAccount extends Account {
 
     @Override
     public void withdraw(float amount){
-        balance -= amount;
+        if (amount > balance) {
+            overdraft += amount - balance;
+            balance = 0;
+        } else {
+            super.withdraw(amount);
+        }
     }
 }
