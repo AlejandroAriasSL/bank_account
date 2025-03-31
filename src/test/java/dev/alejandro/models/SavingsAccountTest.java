@@ -10,6 +10,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class SavingsAccountTest {
+
+    private float amount; 
+
+    private void setUp() {
+        amount = 1000;
+    }
     
     @Test
     @DisplayName("It should return true if balance is equal to or higher than $10000")
@@ -29,13 +35,12 @@ public class SavingsAccountTest {
 
         float initialBalance = 5000;
         float annualRate = 1;
-        float depositAmount = 1000;
 
         SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
 
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class, () -> 
-            savingsAccount.deposit(depositAmount));
+            savingsAccount.deposit(amount));
   
 
         assertFalse(savingsAccount.isActive());
@@ -49,14 +54,13 @@ public class SavingsAccountTest {
 
         float initialBalance = 10000;
         float annualRate = 1;
-        float depositAmount = 1000;
 
         SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
 
-        savingsAccount.deposit(depositAmount);
+        savingsAccount.deposit(amount);
 
         assertTrue(savingsAccount.isActive());
-        assertThat(savingsAccount.getBalance(), is(initialBalance + depositAmount));
+        assertThat(savingsAccount.getBalance(), is(initialBalance + amount));
     }
 
     @Test
@@ -65,13 +69,12 @@ public class SavingsAccountTest {
 
         float initialBalance = 5000;
         float annualRate = 1;
-        float withdrawAmount = 1000;
 
         SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
 
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class, () -> 
-            savingsAccount.withdraw(withdrawAmount));
+            savingsAccount.withdraw(amount));
   
 
         assertFalse(savingsAccount.isActive());
