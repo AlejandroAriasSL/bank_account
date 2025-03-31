@@ -15,7 +15,7 @@ public class SavingsAccount extends Account {
     @Override
     public void deposit(float amount) {
         if (!isActive()) {
-            return;
+            throw new IllegalArgumentException("Cannot deposit to an inactive account");
         }
     }
 }
