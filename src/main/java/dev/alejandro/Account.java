@@ -45,4 +45,9 @@ public abstract class Account {
         }
     }
 
+    public void calculateMonthlyRate() {
+        float monthlyRate = (annualRate / 100) / 12;
+        balance += balance * monthlyRate;
+    }
+
 }
