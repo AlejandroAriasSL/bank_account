@@ -1,8 +1,12 @@
 package dev.alejandro.models;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -115,6 +119,28 @@ public class AccountTest {
         account.monthlyStatement();
 
         assertThat(account.getBalance(), is(initialBalance - monthlyCommision + (initialBalance * monthlyRate)));
-    
     }
+
+    @Test
+    @DisplayName("It should print the value of the attributes")
+    void test_prints_attributes_of_the_account() {
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(output));
+
+        account.printDetails();
+
+        String outputString = output.toString();
+
+        assertThat(outputString, containsString("Account details:"));
+        assertThat(outputString, containsString(String.valueOf(account.getBalance())));
+        assertThat(outputString, containsString(String.valueOf(account.getAnnualRate())));
+        assertThat(outputString, containsString(String.valueOf(account.getMonthlyCommision())));
+        assertThat(outputString, containsString(String.valueOf(account.getDepositCounter())));
+        assertThat(outputString, containsString(String.valueOf(account.getWithdrawalCounter())));
+
+        System.setOut(originalOut);
+    }
+
 }
