@@ -33,4 +33,8 @@ public abstract class Account {
         return withdrawalCounter;
     }
 
+    public void deposit(float amount) {
+        balance += amount;
+    }
+
 }
