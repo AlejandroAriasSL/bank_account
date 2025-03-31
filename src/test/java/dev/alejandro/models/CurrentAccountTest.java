@@ -34,4 +34,21 @@ public class CurrentAccountTest {
 
         assertThat(currentAccount.getBalance(), is(balance - amount));
     }
+
+    @Test
+    @DisplayName("It should accumulate debt as overdraft")
+    void test_it_accumulates_debt_as_overdraft() {
+
+        float balance = 20000;
+        float annualRate = 1; 
+        float amount = 30000;
+
+        CurrentAccount currentAccount = new CurrentAccount(balance, annualRate);
+
+        currentAccount.withdraw(amount);
+
+        float expectedOverdraft = amount - balance;
+
+        assertThat(currentAccount.getOverdraft(), is(expectedOverdraft));
+    }
 }
