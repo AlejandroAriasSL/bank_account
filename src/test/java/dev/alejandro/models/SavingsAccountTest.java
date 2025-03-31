@@ -98,4 +98,22 @@ public class SavingsAccountTest {
         assertThat(savingsAccount.getBalance(), is(initialBalance - amount));
     }
 
+    @Test
+    @DisplayName("It should update the withdrawal counter after every withdraw operation")
+    void test_updates_withdrawCounter_after_withdraw() {
+
+        float initialBalance = 10000;
+        float annualRate = 1;
+
+        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
+
+        savingsAccount.withdraw(50);
+
+        assertThat(savingsAccount.getWithdrawalCounter(), is(1));
+        
+        savingsAccount.withdraw(50);
+        
+        assertThat(savingsAccount.getWithdrawalCounter(), is(2));
+    }
+
 }
