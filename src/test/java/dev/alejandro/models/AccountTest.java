@@ -2,6 +2,7 @@ package dev.alejandro.models;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -78,5 +79,18 @@ public class AccountTest {
         account.withdraw(50);
 
         assertThat(account.getBalance(), is(950.0f));
+    }
+
+     @Test
+    @DisplayName("It should throw a exception if withdraw amount is higher than balance amount")
+    void test_throws_exception_if_withdrawal_is_higher_than_balance() {
+
+        IllegalArgumentException exception = assertThrows(
+          IllegalArgumentException.class, () -> 
+            account.withdraw(2000));
+
+        assertThat(exception.getMessage(), is("Insufficient funds for this operation."));
+
+
     }
 }
