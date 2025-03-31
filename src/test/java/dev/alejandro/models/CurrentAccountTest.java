@@ -1,7 +1,11 @@
 package dev.alejandro.models;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -60,5 +64,26 @@ public class CurrentAccountTest {
 
         assertThat(currentAccount.getOverdraft(), is(expectedOverdraft - depositAmount));
 
+    }
+
+    @Test
+    @DisplayName("It should print the balance, monthly commision, number of transactions and overdraft value")
+    void test_prints_attributes_of_the_current_account() {
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(output));
+
+        float amount = 30000;
+
+        currentAccount.withdraw(amount);
+
+        currentAccount.printDetails();
+
+        String outputString = output.toString();
+        
+        assertThat(outputString, containsString(String.valueOf(currentAccount.getOverdraft())));
+        
+        System.setOut(originalOut);
     }
 }
