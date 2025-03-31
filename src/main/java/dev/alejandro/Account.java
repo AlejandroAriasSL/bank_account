@@ -37,4 +37,8 @@ public abstract class Account {
         balance += amount;
     }
 
+    public void withdraw(float amount) {
+        balance -= amount;
+    }
+
 }
