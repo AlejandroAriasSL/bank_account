@@ -16,6 +16,8 @@ public class SavingsAccount extends Account {
     public void deposit(float amount) {
         if (!isActive()) {
             throw new IllegalArgumentException("Cannot deposit to an inactive account");
-        }
+        } 
+        
+        balance += amount;
     }
 }
