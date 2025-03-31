@@ -92,9 +92,9 @@ public class SavingsAccountTest {
 
         SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
 
-        savingsAccount.withdraw(amount);
-
         assertTrue(savingsAccount.isActive());
+        
+        savingsAccount.withdraw(amount);
         assertThat(savingsAccount.getBalance(), is(initialBalance - amount));
     }
 

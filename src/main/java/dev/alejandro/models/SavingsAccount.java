@@ -26,5 +26,7 @@ public class SavingsAccount extends Account {
         if (!isActive()) {
             throw new IllegalArgumentException("Cannot withdraw from an inactive account");
         }
+
+        balance -= amount;
     }
 }
