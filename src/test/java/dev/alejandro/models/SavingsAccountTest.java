@@ -102,7 +102,7 @@ public class SavingsAccountTest {
     @DisplayName("It should update the withdrawal counter after every withdraw operation")
     void test_updates_withdrawCounter_after_withdraw() {
 
-        float initialBalance = 10000;
+        float initialBalance = 20000;
         float annualRate = 1;
 
         SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);

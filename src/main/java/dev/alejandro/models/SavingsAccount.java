@@ -28,5 +28,6 @@ public class SavingsAccount extends Account {
         }
 
         balance -= amount;
+        withdrawalCounter++;
     }
 }
