@@ -2,7 +2,6 @@ package dev.alejandro.models;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,21 +12,22 @@ import org.junit.jupiter.api.Test;
 
 public class SavingsAccountTest {
 
-    private float amount; 
+    private float amount;
+    private SavingsAccount savingsAccount;
+    private float initialBalance;
+    private float annualRate;
 
     @BeforeEach
     private void setUp() {
         amount = 1000;
+        initialBalance = 20000;
+        annualRate = 1;
+        savingsAccount = new SavingsAccount(initialBalance, annualRate);
     }
-    
+
     @Test
     @DisplayName("It should return true if balance is equal to or higher than $10000")
     void test_returns_active_status_of_account() {
-
-        float balance = 10000;
-        float annualRate = 1;
-
-        SavingsAccount savingsAccount = new SavingsAccount(balance, annualRate);
 
         assertThat(savingsAccount.isActive(), is(true));
     }
@@ -39,14 +39,12 @@ public class SavingsAccountTest {
         float initialBalance = 5000;
         float annualRate = 1;
 
-        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
+        SavingsAccount inactiveSavingsAccount = new SavingsAccount(initialBalance, annualRate);
 
         IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class, () -> 
-            savingsAccount.deposit(amount));
-  
+                IllegalArgumentException.class, () -> inactiveSavingsAccount.deposit(amount));
 
-        assertFalse(savingsAccount.isActive());
+        assertFalse(inactiveSavingsAccount.isActive());
         assertThat(exception.getMessage(), is("Cannot deposit to an inactive account"));
 
     }
@@ -54,11 +52,6 @@ public class SavingsAccountTest {
     @Test
     @DisplayName("It should allow deposit if account is active")
     void test_allows_deposit_if_account_is_active() {
-
-        float initialBalance = 10000;
-        float annualRate = 1;
-
-        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
 
         savingsAccount.deposit(amount);
 
@@ -73,14 +66,12 @@ public class SavingsAccountTest {
         float initialBalance = 5000;
         float annualRate = 1;
 
-        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
+        SavingsAccount inactiveSavingsAccount = new SavingsAccount(initialBalance, annualRate);
 
         IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class, () -> 
-            savingsAccount.withdraw(amount));
-  
+                IllegalArgumentException.class, () -> inactiveSavingsAccount.withdraw(amount));
 
-        assertFalse(savingsAccount.isActive());
+        assertFalse(inactiveSavingsAccount.isActive());
         assertThat(exception.getMessage(), is("Cannot withdraw from an inactive account"));
     }
 
@@ -88,13 +79,8 @@ public class SavingsAccountTest {
     @DisplayName("It should allow withdraw if account is active")
     void test_allows_withdraw_if_account_is_active() {
 
-        float initialBalance = 10000;
-        float annualRate = 1;
-
-        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
-
         assertTrue(savingsAccount.isActive());
-        
+
         savingsAccount.withdraw(amount);
         assertThat(savingsAccount.getBalance(), is(initialBalance - amount));
     }
@@ -103,17 +89,12 @@ public class SavingsAccountTest {
     @DisplayName("It should update the withdrawal counter after every withdraw operation")
     void test_updates_withdrawCounter_after_withdraw() {
 
-        float initialBalance = 20000;
-        float annualRate = 1;
-
-        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
-
         savingsAccount.withdraw(50);
 
         assertThat(savingsAccount.getWithdrawalCounter(), is(1));
-        
+
         savingsAccount.withdraw(50);
-        
+
         assertThat(savingsAccount.getWithdrawalCounter(), is(2));
     }
 
@@ -121,11 +102,7 @@ public class SavingsAccountTest {
     @DisplayName("It should charge $1000 of commision per withdrawal if withdrawal counter exceeds 4")
     void test_monthly_statement_charges_1000_per_withdrawal_after_4_withdrawals() {
 
-        float initialBalance = 20000;
-        float annualRate = 1;
         float commision = 1000;
-
-        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
 
         for (int i = 0; i < 4; i++) {
             savingsAccount.withdraw(amount);
@@ -149,12 +126,7 @@ public class SavingsAccountTest {
     @Test
     @DisplayName("It should determine if the account is active after checking balance")
     void test_monthly_statement_sets_active_state_of_account() {
-
-        float initialBalance = 20000;
-        float annualRate = 1;
         float commision = 1000;
-
-        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
 
         assertTrue(savingsAccount.getActive());
 
