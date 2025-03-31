@@ -42,6 +42,7 @@ public abstract class Account {
             throw new IllegalArgumentException("Insufficient funds for this operation.");
         } else {
             balance -= amount;
+            withdrawalCounter++;
         }
     }
 

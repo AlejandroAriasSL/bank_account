@@ -138,8 +138,12 @@ public class SavingsAccountTest {
 
         savingsAccount.monthlyStatement();
 
+        float monthlyRate = (annualRate / 100) / 12;
+        float expectedBalance = (initialBalance - (amount * 6) - (commision * 2));
+        expectedBalance += expectedBalance * monthlyRate;
+
         assertThat(savingsAccount.getWithdrawalCounter(), is(6));
-        assertThat(savingsAccount.getBalance(), is(initialBalance - (amount * 6) - (commision * 2)));
+        assertThat(savingsAccount.getBalance(), is(expectedBalance));
     }
 
     @Test
@@ -160,7 +164,9 @@ public class SavingsAccountTest {
 
         savingsAccount.monthlyStatement();
 
+        float monthlyRate = (annualRate / 100) / 12;
         float expectedBalance = initialBalance - (amount * 10) - (commision * 6);
+        expectedBalance += expectedBalance * monthlyRate;
 
         assertThat(savingsAccount.getBalance(), is(expectedBalance));
 
