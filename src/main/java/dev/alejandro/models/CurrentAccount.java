@@ -21,4 +21,13 @@ public class CurrentAccount extends Account {
             super.withdraw(amount);
         }
     }
+
+    @Override
+    public void deposit(float amount) {
+        if (overdraft > 0) {
+            overdraft -= amount;
+        } else {
+            super.deposit(amount);
+        }
+    }
 }
