@@ -24,23 +24,6 @@ public class SavingsAccountTest {
     }
 
     @Test
-    @DisplayName("It shouldn't allow deposit if account is inactive")
-    void test_does_not_allow_deposit_if_account_is_inactive() {
-
-        float initialBalance = 5000;
-        float annualRate = 1;
-        float depositAmount = 1000;
-
-        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
-
-        savingsAccount.deposit(depositAmount);
-
-        assertFalse(savingsAccount.isActive());
-        assertThat(savingsAccount.getBalance(), is(initialBalance));
-
-    }
-
-    @Test
     @DisplayName("It should throw an exception if deposit is and account is inactive")
     void test_throws_exception_if_account_is_inactive() {
 
