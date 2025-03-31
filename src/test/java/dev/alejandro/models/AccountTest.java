@@ -12,8 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import dev.alejandro.Account;
-
 public class AccountTest {
 
     private class AbstractAccount extends Account {
@@ -23,10 +21,17 @@ public class AccountTest {
     }
 
     private AbstractAccount account;
+    private float initialBalance; 
+    private float monthlyRate;
 
     @BeforeEach
     void setUp() {
+        
+
         account = new AbstractAccount(1000, 1);
+
+        initialBalance = account.getBalance();
+        monthlyRate = (account.getAnnualRate() /100) / 12;
     }
 
     @Test
@@ -100,8 +105,6 @@ public class AccountTest {
     @DisplayName("It should calculate the monthly interest rate and update balance")
     void test_calculates_monthlyRate_and_updates_balance() {
 
-        float initialBalance = account.getBalance();
-        float monthlyRate = (account.getAnnualRate() /100) / 12;
 
         account.calculateMonthlyRate();
 
@@ -112,8 +115,6 @@ public class AccountTest {
     @DisplayName("It should update the balance subtracting the monthly commission and calculating the monthly rate")
     void test_montlyStatement_correctly_substracts_commissions_and_adds_monthlyRate() {
 
-        float initialBalance = account.getBalance();
-        float monthlyRate = (account.getAnnualRate() /100) / 12;
         float monthlyCommision = account.getMonthlyCommision();
 
         account.monthlyStatement();

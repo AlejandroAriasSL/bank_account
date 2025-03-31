@@ -1,4 +1,4 @@
-package dev.alejandro;
+package dev.alejandro.models;
 
 public abstract class Account {
     
