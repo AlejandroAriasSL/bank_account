@@ -19,4 +19,19 @@ public class CurrentAccountTest {
 
         assertThat(currentAccount.getOverdraft(), is(0.0f));
     }
+
+    @Test
+    @DisplayName("It should be able to withdraw amounts higher than balance")
+    void test_can_withdraw_amount_higher_than_balance() {
+
+        float balance = 20000;
+        float annualRate = 1; 
+        float amount = 30000;
+
+        CurrentAccount currentAccount = new CurrentAccount(balance, annualRate);
+
+        currentAccount.withdraw(amount);
+
+        assertThat(currentAccount.getBalance(), is(balance - amount));
+    }
 }
