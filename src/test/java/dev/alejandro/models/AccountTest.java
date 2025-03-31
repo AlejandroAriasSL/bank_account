@@ -24,4 +24,13 @@ public class AccountTest {
 
         assertThat(account.getBalance(), is(1000.0f));
     }
+
+    @Test
+    @DisplayName("It should return the annualRate attribute of the account")
+    void test_returns_annualRate_of_account() {
+
+        AbstractAccount account = new AbstractAccount(1000, 1);
+
+        assertThat(account.getAnnualRate(), is(1.0f));
+    }
 }
