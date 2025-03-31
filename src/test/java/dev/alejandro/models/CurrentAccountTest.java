@@ -41,4 +41,24 @@ public class CurrentAccountTest {
 
         assertThat(currentAccount.getOverdraft(), is(expectedOverdraft));
     }
+
+    @Test
+    @DisplayName("It should reduce the overdraft when deposit are done if there is overdraft")
+    void test_deposit_reduces_overdraft() {
+
+        float amount = 30000;
+
+        currentAccount.withdraw(amount);
+
+        float expectedOverdraft = amount - balance;
+
+        assertThat(currentAccount.getOverdraft(), is(expectedOverdraft));
+
+        float depositAmount = 5000;
+
+        currentAccount.deposit(depositAmount);
+
+        assertThat(currentAccount.getOverdraft(), is(expectedOverdraft - depositAmount));
+
+    }
 }
