@@ -3,6 +3,7 @@ package dev.alejandro.models;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,11 +17,16 @@ public class AccountTest {
         }
     }
 
+    private AbstractAccount account;
+
+    @BeforeEach
+    void setUp() {
+        account = new AbstractAccount(1000, 1);
+    }
+
     @Test
     @DisplayName("It should return the balance attribute of the account")
     void test_returns_balance_of_account() {
-
-        AbstractAccount account = new AbstractAccount(1000);
 
         assertThat(account.getBalance(), is(1000.0f));
     }
@@ -29,8 +35,15 @@ public class AccountTest {
     @DisplayName("It should return the annualRate attribute of the account")
     void test_returns_annualRate_of_account() {
 
-        AbstractAccount account = new AbstractAccount(1000, 1);
 
         assertThat(account.getAnnualRate(), is(1.0f));
+    }
+
+    @Test
+    @DisplayName("It should return the monthlyCommision attribute of the account")
+    void test_returns_monthlyCommision_of_account() {
+
+
+        assertThat(account.getMonthlyCommision(), is(0.0f));
     }
 }
