@@ -11,4 +11,11 @@ public class SavingsAccount extends Account {
     public boolean isActive() {
         return getBalance() >= 10000.0f;
     }
+
+    @Override
+    public void deposit(float amount) {
+        if (!isActive()) {
+            return;
+        }
+    }
 }
