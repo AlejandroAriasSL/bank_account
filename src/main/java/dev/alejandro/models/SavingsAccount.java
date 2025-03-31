@@ -37,10 +37,9 @@ public class SavingsAccount extends Account {
     public void monthlyStatement() {
         if (withdrawalCounter > 4) {
             float commision = 1000;
-            monthlyCommision = commision * (withdrawalCounter - 4) ;
-            super.monthlyStatement();
+            monthlyCommision = commision * (withdrawalCounter - 4) ;  
         }
-
+        super.monthlyStatement();
         active = isActive();
     }
 }
