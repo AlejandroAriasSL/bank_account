@@ -11,8 +11,8 @@ import dev.alejandro.Account;
 public class AccountTest {
 
     private class AbstractAccount extends Account {
-        private AbstractAccount(float balance) {
-            super(balance);
+        private AbstractAccount(float balance, float annualRate) {
+            super(balance, annualRate);
         }
     }
 
