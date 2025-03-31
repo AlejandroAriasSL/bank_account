@@ -38,7 +38,11 @@ public abstract class Account {
     }
 
     public void withdraw(float amount) {
-        balance -= amount;
+        if (amount > balance) {
+            throw new IllegalArgumentException("Insufficient funds for this operation.");
+        } else {
+            balance -= amount;
+        }
     }
 
 }
