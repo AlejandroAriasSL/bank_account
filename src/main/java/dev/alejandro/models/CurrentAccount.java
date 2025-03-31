@@ -30,4 +30,10 @@ public class CurrentAccount extends Account {
             super.deposit(amount);
         }
     }
+
+    @Override
+    public void printDetails() {
+        super.printDetails();
+        System.out.println(getOverdraft());
+    }
 }
