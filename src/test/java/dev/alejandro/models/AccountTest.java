@@ -103,4 +103,18 @@ public class AccountTest {
 
         assertThat(account.getBalance(), is(initialBalance + (initialBalance * monthlyRate)));
     }
+
+    @Test
+    @DisplayName("It should update the balance subtracting the monthly commission and calculating the monthly rate")
+    void test_montlyStatement_correctly_substracts_commissions_and_adds_monthlyRate() {
+
+        float initialBalance = account.getBalance();
+        float monthlyRate = (account.getAnnualRate() /100) / 12;
+        float monthlyCommision = account.getMonthlyCommision();
+
+        account.monthlyStatement();
+
+        assertThat(account.getBalance(), is(initialBalance - monthlyCommision + (initialBalance * monthlyRate)));
+    
+    }
 }
