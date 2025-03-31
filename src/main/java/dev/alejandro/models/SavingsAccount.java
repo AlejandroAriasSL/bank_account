@@ -6,10 +6,15 @@ public class SavingsAccount extends Account {
 
     public SavingsAccount(float balance, float annualRate) {
         super(balance, annualRate);
+        this.active = isActive();
     }
 
     public boolean isActive() {
         return getBalance() >= 10000.0f;
+    }
+
+    public boolean getActive() {
+        return active;
     }
 
     @Override
@@ -38,5 +43,7 @@ public class SavingsAccount extends Account {
             monthlyCommision = commision * (withdrawalCounter - 4) ;
             balance -= monthlyCommision;
         }
+
+        active = isActive();
     }
 }
