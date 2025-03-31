@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +14,7 @@ public class SavingsAccountTest {
 
     private float amount; 
 
+    @BeforeEach
     private void setUp() {
         amount = 1000;
     }
@@ -80,4 +82,20 @@ public class SavingsAccountTest {
         assertFalse(savingsAccount.isActive());
         assertThat(exception.getMessage(), is("Cannot withdraw from an inactive account"));
     }
+
+    @Test
+    @DisplayName("It should allow withdraw if account is active")
+    void test_allows_withdraw_if_account_is_active() {
+
+        float initialBalance = 10000;
+        float annualRate = 1;
+
+        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
+
+        savingsAccount.withdraw(amount);
+
+        assertTrue(savingsAccount.isActive());
+        assertThat(savingsAccount.getBalance(), is(initialBalance - amount));
+    }
+
 }
