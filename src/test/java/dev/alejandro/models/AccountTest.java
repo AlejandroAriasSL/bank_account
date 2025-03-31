@@ -6,8 +6,15 @@ import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import dev.alejandro.Account;
+
 public class AccountTest {
-    
+
+    private class AbstractAccount extends Account {
+        private AbstractAccount(float balance) {
+            super(balance);
+        }
+    }
 
     @Test
     @DisplayName("It should return the balance attribute of the account")
