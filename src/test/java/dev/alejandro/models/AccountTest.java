@@ -70,4 +70,13 @@ public class AccountTest {
 
         assertThat(account.getBalance(), is(2000.0f));
     }
+
+    @Test
+    @DisplayName("It should have a withdraw method that updates the balance of the account")
+    void test_it_updates_balance_after_withdraw() {
+
+        account.withdraw(50);
+
+        assertThat(account.getBalance(), is(950.0f));
+    }
 }
