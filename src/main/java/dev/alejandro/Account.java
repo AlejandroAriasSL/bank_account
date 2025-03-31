@@ -56,4 +56,13 @@ public abstract class Account {
         calculateMonthlyRate();
     }
 
+    public void printDetails() {
+       System.out.println("Account details:"); 
+       System.out.println(getBalance()); 
+       System.out.println(getAnnualRate()); 
+       System.out.println(getMonthlyCommision()); 
+       System.out.println(getDepositCounter()); 
+       System.out.println(getWithdrawalCounter()); 
+    }
+
 }
