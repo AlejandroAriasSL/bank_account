@@ -30,4 +30,13 @@ public class SavingsAccount extends Account {
         balance -= amount;
         withdrawalCounter++;
     }
+
+    @Override
+    public void monthlyStatement() {
+        if (withdrawalCounter > 4) {
+            float commision = 1000;
+            monthlyCommision = commision * (withdrawalCounter - 4) ;
+            balance -= monthlyCommision;
+        }
+    }
 }
