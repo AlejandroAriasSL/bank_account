@@ -46,4 +46,12 @@ public class AccountTest {
 
         assertThat(account.getMonthlyCommision(), is(0.0f));
     }
+
+    @Test
+    @DisplayName("It should return the deposit counter of the account")
+    void test_returns_depositCoutner_of_account() {
+    
+    
+        assertThat(account.getDepositCounter(), is(0));
+    }
 }
