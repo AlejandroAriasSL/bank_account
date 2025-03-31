@@ -81,7 +81,7 @@ public class AccountTest {
         assertThat(account.getBalance(), is(950.0f));
     }
 
-     @Test
+    @Test
     @DisplayName("It should throw a exception if withdraw amount is higher than balance amount")
     void test_throws_exception_if_withdrawal_is_higher_than_balance() {
 
@@ -90,7 +90,17 @@ public class AccountTest {
             account.withdraw(2000));
 
         assertThat(exception.getMessage(), is("Insufficient funds for this operation."));
+    }
 
+    @Test
+    @DisplayName("It should calculate the monthly interest rate and update balance")
+    void test_calculates_monthlyRate_and_updates_balance() {
 
+        float initialBalance = account.getBalance();
+        float monthlyRate = (account.getAnnualRate() /100) / 12;
+
+        account.calculateMonthlyRate();
+
+        assertThat(account.getBalance(), is(initialBalance + (initialBalance * monthlyRate)));
     }
 }
