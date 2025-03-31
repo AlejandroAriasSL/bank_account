@@ -61,4 +61,13 @@ public class AccountTest {
 
         assertThat(account.getWithdrawalCounter(), is(0));
     }
+
+    @Test
+    @DisplayName("It should update balance after deposit")
+    void test_updates_balance_after_deposit() {
+
+        account.deposit(1000);
+
+        assertThat(account.getBalance(), is(2000.0f));
+    }
 }
