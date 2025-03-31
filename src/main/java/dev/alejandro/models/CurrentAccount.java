@@ -11,4 +11,9 @@ public class CurrentAccount extends Account {
     public float getOverdraft() {
         return overdraft;
     }
+
+    @Override
+    public void withdraw(float amount){
+        balance -= amount;
+    }
 }
