@@ -2,6 +2,7 @@ package dev.alejandro.models;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -139,6 +140,32 @@ public class SavingsAccountTest {
 
         assertThat(savingsAccount.getWithdrawalCounter(), is(6));
         assertThat(savingsAccount.getBalance(), is(initialBalance - (amount * 6) - (commision * 2)));
+    }
+
+    @Test
+    @DisplayName("It should determine if the account is active after checking balance")
+    void test_monthly_statement_sets_active_state_of_account() {
+
+        float initialBalance = 20000;
+        float annualRate = 1;
+        float commision = 1000;
+
+        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
+
+        assertTrue(savingsAccount.getActive());
+
+        for (int i = 0; i < 10; i++) {
+            savingsAccount.withdraw(amount);
+        }
+
+        savingsAccount.monthlyStatement();
+
+        float expectedBalance = initialBalance - (amount * 10) - (commision * 6);
+
+        assertThat(savingsAccount.getBalance(), is(expectedBalance));
+
+        assertFalse(savingsAccount.getActive());
+
     }
 
 }
