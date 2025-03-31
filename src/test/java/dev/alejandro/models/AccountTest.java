@@ -54,4 +54,11 @@ public class AccountTest {
     
         assertThat(account.getDepositCounter(), is(0));
     }
+
+    @Test
+    @DisplayName("It should return the withdrawal counter of the account")
+    void test_returns_withdrawalCounter_of_account() {
+
+        assertThat(account.getWithdrawalCounter(), is(0));
+    }
 }
