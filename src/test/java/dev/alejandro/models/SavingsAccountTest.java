@@ -3,6 +3,7 @@ package dev.alejandro.models;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
@@ -36,6 +37,26 @@ public class SavingsAccountTest {
 
         assertFalse(savingsAccount.isActive());
         assertThat(savingsAccount.getBalance(), is(initialBalance));
+
+    }
+
+    @Test
+    @DisplayName("It should throw an exception if deposit is and account is inactive")
+    void test_throws_exception_if_account_is_inactive() {
+
+        float initialBalance = 5000;
+        float annualRate = 1;
+        float depositAmount = 1000;
+
+        SavingsAccount savingsAccount = new SavingsAccount(initialBalance, annualRate);
+
+        IllegalArgumentException exception = assertThrows(
+            IllegalArgumentException.class, () -> 
+            savingsAccount.deposit(depositAmount));
+  
+
+        assertFalse(savingsAccount.isActive());
+        assertThat(exception.getMessage(), is("Cannot deposit to an inactive account"));
 
     }
 }
