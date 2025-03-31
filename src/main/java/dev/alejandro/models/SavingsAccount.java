@@ -20,4 +20,11 @@ public class SavingsAccount extends Account {
         
         balance += amount;
     }
+
+    @Override
+    public void withdraw(float amount) {
+        if (!isActive()) {
+            throw new IllegalArgumentException("Cannot withdraw from an inactive account");
+        }
+    }
 }
